@@ -1,35 +1,35 @@
 {
   "expo": {
-    "name": "tarot-native",
-    "slug": "tarot-native",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/simpletarot.png",
-    "splash": {
-      "image": "./assets/simpletarot.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.bluemoonecho.tarot-native"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/simpletarot.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/simpletarot.png"
-    },
-    "description": "A simple tarot app built with react-native\n\n",
-    "githubUrl": "https://github.com/bluemoonecho/tarot-react-native"
+   "name": "taro-maranhense",
+   "icon": "./assets/simpletarot.png",
+   "version": "1.0.0",
+   "slug": "taro-maranhense",
+   "sdkVersion": "42.0.0",
+   "orientation": "portrait",
+   "backgroundColor": "#003264",
+   "splash": {
+     "image": "./assets/simpletarot.png",
+     "resizeMode": "contain",
+     "backgroundColor": "#003264"
+   },
+   "ios": {
+    "bundleIdentifier": "com.ozychan.taromaranhense",
+    "buildNumber": "1.0.0",
+    "backgroundColor": "#003264"
+
+  },
+   "android": {
+     "package": "com.ozychan.taro_maranhense",
+     "versionCode": 2,
+     "permissions": [],
+     "adaptiveIcon": {
+      "foregroundImage": "./assets/simpletarot.png",
+      "backgroundColor": "#02264b"
+    }
+   }
   }
 }
+
+
+
+

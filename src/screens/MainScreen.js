@@ -1,11 +1,11 @@
-import React, {useState} from  'react';
-import { View,Text, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import cardsObject from '../cards-folder/cardsObject';
 import CardAnimation from '../components/CardAnimation';
 import {
     useFonts,
     CantoraOne_400Regular,
-    } from '@expo-google-fonts/cantora-one';
+} from '@expo-google-fonts/cantora-one';
 import * as Animatable from 'react-native-animatable';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import StyleSheet from 'react-native-media-query';
@@ -14,59 +14,59 @@ const background = require(`./../cards-folder/tarotBack.png`);
 
 
 
-const MainScreen = ({navigation}) => {
+const MainScreen = ({ navigation }) => {
 
     const [fontsLoaded] = useFonts({
         CantoraOne_400Regular,
-        });
-/// shuffle function 
+    });
+    /// shuffle function 
 
-const shuffle = ()=> {
-    setChosenNumber(() => {
-        let random = Number(Math.floor(Math.random() * cardsObject.length));
-        return random          
-    })        
-}
-/// Choose Number
+    const shuffle = () => {
+        setChosenNumber(() => {
+            let random = Number(Math.floor(Math.random() * cardsObject.length));
+            return random
+        })
+    }
+    /// Choose Number
     const [chosenNumber, setChosenNumber] = useState()
     const listOfNames = (cards) => {
         let tarot_cards = [];
-            for (let i=0; i < cards.length; i+=1) {
+        for (let i = 0; i < cards.length; i += 1) {
             tarot_cards.push(cards[i].name);
         }
         return tarot_cards;
     }
-/// Choose Name
+    /// Choose Name
     const listNames = listOfNames(cardsObject);
     const listOfImages = (cards) => {
         let tarot_cards = [];
-            for (let i=0; i < cards.length; i+=1) {
+        for (let i = 0; i < cards.length; i += 1) {
             tarot_cards.push(cards[i].cardImage);
         }
         return tarot_cards;
     }
-/// Choose Image
+    /// Choose Image
     const listImages = listOfImages(cardsObject);
     const listOfKeywords = (cards) => {
         let tarot_cards = [];
-            for (let i=0; i < cards.length; i+=1) {
+        for (let i = 0; i < cards.length; i += 1) {
             tarot_cards.push(cards[i].keywords);
         }
         return tarot_cards;
     }
-/// Choose Keywords
+    /// Choose Keywords
     const listKeywords = listOfKeywords(cardsObject);
     const listOfContent = (cards) => {
         let tarot_cards = [];
-            for (let i=0; i < cards.length; i+=1) {
+        for (let i = 0; i < cards.length; i += 1) {
             tarot_cards.push(cards[i].content);
         }
         return tarot_cards;
     }
-////Creating the Variable to be shown
+    ////Creating the Variable to be shown
     const listContent = listOfContent(cardsObject);
     const tarotName = listNames[chosenNumber];
-    const tarotImage= listImages[chosenNumber];
+    const tarotImage = listImages[chosenNumber];
     const tarotKeywords = listKeywords[chosenNumber];
     const tarotContent = listContent[chosenNumber];
 
@@ -76,7 +76,7 @@ const shuffle = ()=> {
     const [contentVisible, setContentVisible] = useState(false);
 
 
-// IMAGE INDEX
+    // IMAGE INDEX
     const [imageIndex, setImageIndex] = useState(0)
     const [contentIndex, setContentIndex] = useState(1)
     const handleImageIndex = () => {
@@ -87,14 +87,14 @@ const shuffle = ()=> {
     }
 
     const [animationVisible, setAnimationVisble] = useState(false)
- 
+
     const background = require(`./../cards-folder/tarotBack.png`);
 
     const handleDraw = () => {
         shuffle()
         setDrawVisible(false)
-        setAnimationVisble(true) 
-        setTimeout(()=> setAnimationVisble(false), 2000)    
+        setAnimationVisble(true)
+        setTimeout(() => setAnimationVisble(false), 2000)
         //setTimeout(()=> 
         setImageVisible(true)
         //, 2000)
@@ -108,113 +108,123 @@ const shuffle = ()=> {
 
     if (!fontsLoaded) {
         return <Text>Carregando...</Text>
-        } else {
-            return (
+    } else {
+        return (
             <>
-
-
-<ScrollView  keyboardShouldPersistTaps={'always'} style={styles.container}>
-
-
-
-                    {drawVisible ? 
-                        <View style={styles.containerDraw}>
-                             {handleDraw()}   
  
-                            </View> 
-                        : null }    
-                        
-                        {animationVisible ? 
-                            <View style={styles.animation}>
-                                <CardAnimation />
-                            </View>
-                        : null }                                                
-                        {!animationVisible ? 
+
+
+                <ScrollView keyboardShouldPersistTaps={'always'} style={styles.container}>
+
+  
+                
+                                  {drawVisible ?
+                        <View style={styles.containerDraw}>
+                            {handleDraw()}
+
+                        </View>
+                        : null}
+
+                    {animationVisible ?
+                        <View style={styles.animation}>
+                            <CardAnimation />
+                        </View>
+                        : null}
+                    {!animationVisible ?
                         <Modal
                             animationType="fade"
                             easing="easeIn"
                             transparent={true}
                             visible={imageVisible}
-                            >
-                            <TouchableOpacity onPress={()=> handleImageIndex()} style={[styles.changeImageIndex, {zIndex: imageIndex}]}>
-                            <Animatable.View
-                            //animation="bounce"
-                            easing="ease-in" >
-                            <Image style={styles.tarotImage} source={tarotImage} />
-                            </Animatable.View>
+                        >
+                            <TouchableOpacity onPress={() => handleImageIndex()} style={[styles.changeImageIndex, { zIndex: imageIndex }]}>
+                                <Animatable.View
+                                    //animation="bounce"
+                                    easing="ease-in" >
+                                    <Image style={styles.tarotImage} source={tarotImage} />
+                                </Animatable.View>
                             </TouchableOpacity>
-                        {contentVisible ?                           
-                        <View>  
-                            
-                                <ScrollView 
-                                style={styles.contentContainer}
-                                keyboardShouldPersistTaps={'always'}
-                                >
-                                <TouchableOpacity 
-                                onPress={handleContentIndex} 
-                                style={[styles.changeContentIndex, {zIndex: contentIndex}]}>
-                                    <Text style={styles.tarotName}>{tarotName}</Text>
-                                    <Text style={styles.tarotKeywords}>{tarotKeywords}</Text>
-                                    <Text style={styles.tarotContent}>{tarotContent}</Text>
-                                    </TouchableOpacity>
-                                </ScrollView> 
+                            {contentVisible ?
+                                <View>
 
-                                
-                            <View>
-                                <TouchableOpacity style={styles.btn1} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
-                                <Text style={styles.textAskAgain}>Início</Text>
-                        </TouchableOpacity>
+                                    <ScrollView
+                                        style={styles.contentContainer}
+                                        keyboardShouldPersistTaps={'always'}
+                                    >
+                                        <TouchableOpacity
+                                            onPress={handleContentIndex}
+                                            style={[styles.changeContentIndex, { zIndex: contentIndex }]}>
+                                            <Text style={styles.tarotContent}>{tarotContent}</Text>
+                                        </TouchableOpacity>
+                                    </ScrollView>
 
-                        <TouchableOpacity style={styles.btn0} title='Ask Again'  onPress={()=>{handleDraw()}}>
-                                <Text style={styles.textAskAgain}>Outra Carta</Text>
-                        </TouchableOpacity>
 
-                        </View>
-        
+                                    <View>
+                                        <TouchableOpacity style={styles.btn1} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
+                                            <Text style={styles.textAskAgain}>início</Text>
+                                        </TouchableOpacity>
 
-                        </View>
-                        : null}
-                    
+                                        <TouchableOpacity style={styles.btn0} title='Ask Again' onPress={() => { handleDraw() }}>
+                                            <Text style={styles.textAskAgain}>outra carta</Text>
+                                        </TouchableOpacity>
+
+                                    </View>
+
+                                </View>
+                                : null}
+
                         </Modal>
                         : null}
 
-                    
-            </ScrollView>
+                </ScrollView>
             </>
-            )
-        }
+        )
+    }
 }
 
-const {ids, styles} = StyleSheet.create({
-    container : {
+const { ids, styles } = StyleSheet.create({
+    introContainer: {
+        // flex: 1,
+         flexWrap: "wrap",
+         flexDirection: "row",
+        // backgroundColor: '#000c51',
+        // width: '100%',
+        // height: '100%',
+         justifyContent: 'center',
+     },
+     
+     container: {
         paddingVertical: 10,
         paddingHorizontal: 5,
-        marginTop: '5%',
-        backgroundColor:   'black',
-        marginHorizontal: "1%",
+      //  marginTop: '5%',
+      // backgroundColor: '#000c51',
+       backgroundColor: '#02264b',
+   
+       // marginHorizontal: "1%",
     },
-    animation:{
+    animation: {
         flex: 1,
         left: 10,
         top: 0,
+        justifyContent: 'center',
     },
-    title:{      
+    title: {
         fontSize: 30,
         textAlign: 'center',
         top: '8%',
         fontFamily: 'CantoraOne_400Regular',
     },
     containerDraw: {
-        alignSelf:'center',
+        alignSelf: 'center',
     },
-    draw:{ 
+    draw: {
         width: 250,
         height: 250,
         alignContent: 'center',
-        alignSelf:'center',
+        alignSelf: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        
+
     },
     titleDraw: {
         fontFamily: 'CantoraOne_400Regular',
@@ -225,22 +235,27 @@ const {ids, styles} = StyleSheet.create({
         //height: 350,
         height: '90%',
         //width: 200,
-        width: '95%',
+        width: '90%',
         marginTop: '3%',
-        alignSelf:'center',
+        alignSelf: 'center',
+        borderColor: 'white',
+        borderWidth: 1,
+
     },
     contentContainer: {
         flexWrap: 'wrap',
         borderWidth: 1,
         borderRadius: 10,
-        borderColor: '#5F0404',
-        backgroundColor: 'white',
+        borderColor: 'white',
+        backgroundColor: '#003264',
+        //backgroundColor: '#155493',
+        //backgroundColor: '#134d86',
         width: '90%',
-        height: '30%',
-        alignSelf:'center',
+        height: '18%',
+        alignSelf: 'center',
         //marginBottom: '30%',
-        marginTop: '-50%',
-        },
+        marginTop: '-28%',
+    },
     tarotName: {
         fontSize: 20,
         textAlign: 'left',
@@ -248,6 +263,8 @@ const {ids, styles} = StyleSheet.create({
         paddingLeft: 20,
         paddingTop: 15,
         fontWeight: 'bold',
+        color: 'white', 
+
     },
     tarotKeywords: {
         textAlign: 'left',
@@ -258,43 +275,53 @@ const {ids, styles} = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         fontStyle: 'italic',
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
+        color: 'white', 
+
     },
     tarotContent: {
         textAlign: 'left',
         padding: 20,
         fontFamily: 'CantoraOne_400Regular',
         fontSize: 14,
+        color: 'white', 
+
     },
     btn0: {
         borderWidth: 1,
         borderRadius: 15,
         left: '25%',
         marginTop: '-81%',
-        marginBottom: '70%', 
+        marginBottom: '70%',
         paddingVertical: 10,
+        borderColor: 'white',
         paddingHorizontal: 30,
-        alignSelf:'center',
-        backgroundColor: 'white',
-        fontFamily: 'CantoraOne_400Regular',
+        alignSelf: 'center',
+        //backgroundColor: '#003264',
+        //backgroundColor: '#155493',
+        backgroundColor: '#134d86',
+      
+       fontFamily: 'CantoraOne_400Regular',
     },
     btn1: {
         borderWidth: 1,
         borderRadius: 5,
         borderRadius: 15,
-        borderColor: '#5F0404',
+        borderColor: 'white',
         right: '25%',
         marginTop: '-4%',
-        marginBottom: '70%', 
+        marginBottom: '70%',
         paddingVertical: 10,
         paddingHorizontal: 30,
-        alignSelf:'center',
-        backgroundColor: 'white',
+        alignSelf: 'center',
+        backgroundColor: '#134d86',
+       // backgroundColor: '#155493',
         fontFamily: 'CantoraOne_400Regular',
     },
     textAskAgain: {
         fontFamily: 'CantoraOne_400Regular',
         fontSize: 14,
+        color: 'white', 
     }
 })
 

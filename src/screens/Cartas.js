@@ -1,3 +1,483 @@
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import cardsObject from '../cards-folder/cardsObject';
+import CardAnimation from '../components/CardAnimation';
+import {
+    useFonts,
+    CantoraOne_400Regular,
+} from '@expo-google-fonts/cantora-one';
+import * as Animatable from 'react-native-animatable';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import StyleSheet from 'react-native-media-query';
+
+const background = require(`./../cards-folder/tarotBack.png`);
+
+
+
+const Cartas = ({ navigation }) => {
+
+    const [fontsLoaded] = useFonts({
+        CantoraOne_400Regular,
+    });
+    /// shuffle function 
+
+    const shuffle = (Number) => {
+        setChosenNumber(() => {
+            let random = Number;
+            return random
+        })
+    }
+    /// Choose Number
+    let [chosenNumber, setChosenNumber] = useState()
+    const listOfNames = (cards) => {
+        let tarot_cards = [];
+        for (let i = 0; i < cards.length; i += 1) {
+            tarot_cards.push(cards[i].name);
+        }
+        return tarot_cards;
+    }
+    /// Choose Name
+    const listNames = listOfNames(cardsObject);
+    const listOfImages = (cards) => {
+        let tarot_cards = [];
+        for (let i = 0; i < cards.length; i += 1) {
+            tarot_cards.push(cards[i].cardImage);
+        }
+        return tarot_cards;
+    }
+    /// Choose Image
+    const listImages = listOfImages(cardsObject);
+    const listOfKeywords = (cards) => {
+        let tarot_cards = [];
+        for (let i = 0; i < cards.length; i += 1) {
+            tarot_cards.push(cards[i].keywords);
+        }
+        return tarot_cards;
+    }
+    /// Choose Keywords
+    const listKeywords = listOfKeywords(cardsObject);
+    const listOfContent = (cards) => {
+        let tarot_cards = [];
+        for (let i = 0; i < cards.length; i += 1) {
+            tarot_cards.push(cards[i].content);
+        }
+        return tarot_cards;
+    }
+    ////Creating the Variable to be shown
+    //let listContent = listOfContent(cardsObject);
+    let listContent = listOfContent(cardsObject);
+    let tarotName = listNames[chosenNumber];
+    let tarotImage = listImages[chosenNumber];
+    let tarotKeywords = listKeywords[chosenNumber];
+    let tarotContent = listContent[chosenNumber];
+
+    ///MODALS STATES
+    const [drawVisible, setDrawVisible] = useState(true);
+    const [imageVisible, setImageVisible] = useState(false);
+    const [contentVisible, setContentVisible] = useState(false);
+
+
+    // IMAGE INDEX
+    const [imageIndex, setImageIndex] = useState(0)
+    const [contentIndex, setContentIndex] = useState(1)
+    const handleImageIndex = () => {
+        imageIndex <= contentIndex ? setImageIndex(contentIndex + 1) : setImageIndex(0)
+    }
+    const handleContentIndex = () => {
+        contentIndex <= imageIndex ? setContentIndex(imageIndex + 1) : setContentIndex(1)
+    }
+
+    const [animationVisible, setAnimationVisble] = useState(false)
+
+    const background = require(`./../cards-folder/tarotBack.png`);
+
+
+    const handleDraw = (Number) => {
+
+        shuffle(Number)
+        setDrawVisible(false)
+        //setAnimationVisble(true)
+        //setTimeout(() => setAnimationVisble(false), 2000)
+        //setTimeout(()=> 
+        setImageVisible(true)
+        //, 2000)
+        //setTimeout(()=> 
+        setContentVisible(true)
+        //,4000)
+    }
+
+    const deshandleDraw = () => {
+
+        chosenNumber = 1;
+        tarotImage = chosenNumber;
+        setDrawVisible(true)
+        setImageVisible(false)
+        setContentVisible(false)
+    }
+
+    //console.log(imageIndex, contentIndex)
+
+    if (!fontsLoaded) {
+        return <Text>Carregando...</Text>
+    } else {
+        return (
+            <>
+
+                <ScrollView keyboardShouldPersistTaps={'always'} style={styles.container}>
+
+
+                   {drawVisible ?
+                        <View style={styles.containerDraw}>
+
+
+
+
+
+                            <View style={styles.introContainer} >
+
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(0) }} >
+                                    <Text style={styles.texta}>o louco</Text>
+
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(1) }}>
+                                    <Text style={styles.texta}>o mago</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(2) }}>
+                                    <Text style={styles.texta}>a sacerdotisa</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(3) }}>
+                                    <Text style={styles.texta}>a imperatriz</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(4) }}>
+                                    <Text style={styles.texta}>o imperador</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(5) }}>
+                                    <Text style={styles.texta}>a hierofante</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(6) }}>
+                                    <Text style={styles.texta}>enamorados</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(7) }}>
+                                    <Text style={styles.texta}>o carro</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(8) }}>
+                                    <Text style={styles.texta}>a força</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(9) }}>
+                                    <Text style={styles.texta}>o eremita</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(10) }}>
+                                    <Text style={styles.texta}>a roda da fortuna</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(11) }}>
+                                    <Text style={styles.texta}>a justiça</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(12) }}>
+                                    <Text style={styles.texta}>o enforcado</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(13) }}>
+                                    <Text style={styles.texta}>a morte</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(14) }}>
+                                    <Text style={styles.texta}>a temperança</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(15) }}>
+                                    <Text style={styles.texta}>o diabo</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(16) }}>
+                                    <Text style={styles.texta}>a torre</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(17) }}>
+                                    <Text style={styles.texta}>a estrela</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(18) }}>
+                                    <Text style={styles.texta}>a lua</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(19) }}>
+                                    <Text style={styles.texta}>o sol</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(20) }}>
+                                    <Text style={styles.texta}>o julgamento</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => { handleDraw(21) }}>
+                                    <Text style={styles.texta}>o mundo</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
+                                    <Text style={styles.texta}>voltar</Text>
+                                </TouchableOpacity>
+
+                            </View>
+
+
+                        </View>
+                        : null}
+
+                    {animationVisible ?
+                        <View style={styles.animation}>
+                            <CardAnimation />
+                        </View>
+                        : null}
+                    {!animationVisible ?
+                        <Modal
+                            animationType="fade"
+                            easing="easeIn"
+                            transparent={true}
+                            visible={imageVisible}
+                        >
+                            <TouchableOpacity onPress={() => handleImageIndex()} style={[styles.changeImageIndex, { zIndex: imageIndex }]}>
+                                <Animatable.View
+                                    //animation="bounce"
+                                    easing="ease-in" >
+                                    <Image style={styles.tarotImage} source={tarotImage} />
+                                </Animatable.View>
+                            </TouchableOpacity>
+                            {contentVisible ?
+                                <View>
+
+                                    <ScrollView
+                                        style={styles.contentContainer}
+                                        keyboardShouldPersistTaps={'always'}
+                                    >
+                                        <TouchableOpacity
+                                            onPress={handleContentIndex}
+                                            style={[styles.changeContentIndex, { zIndex: contentIndex }]}>
+
+                                            <Text style={styles.tarotContent}>{tarotContent}</Text>
+                                        </TouchableOpacity>
+                                    </ScrollView>
+
+
+                                    <View>
+                                        <TouchableOpacity style={styles.btn1} title='Ask Again' onPress={() => { deshandleDraw() }} >
+                                            <Text style={styles.textAskAgain}>Voltar</Text>
+                                        </TouchableOpacity>
+
+
+                                    </View>
+
+                                </View>
+                                : null}
+
+                        </Modal>
+                        : null}
+
+                </ScrollView>
+            </>
+        )
+    }
+}
+
+const { ids, styles } = StyleSheet.create({
+    introContainer: {
+        // flex: 1,
+        flexWrap: "wrap",
+        flexDirection: "row",
+        // backgroundColor: '#000c51',
+        // width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+    },
+    bground: {
+        flex: 9,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        width: '100%',
+        height: '10%', 
+    },
+
+    container: {
+        paddingVertical: 15,
+        paddingHorizontal: 12,
+        //  marginTop: '5%',
+        // backgroundColor: '#000c51',
+        backgroundColor: '#02264b',
+
+
+        // marginHorizontal: "1%",
+    },
+    animation: {
+        flex: 1,
+        left: 10,
+        top: 0,
+    },
+    title: {
+        fontSize: 30,
+        textAlign: 'center',
+        top: '8%',
+        fontFamily: 'CantoraOne_400Regular',
+    },
+    containerDraw: {
+        alignSelf: 'center',
+
+    },
+    draw: {
+        width: 250,
+        height: 250,
+        alignContent: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+
+
+    },
+    titleDraw: {
+        fontFamily: 'CantoraOne_400Regular',
+        fontSize: 30,
+        textAlign: 'center',
+    },
+    tarotImage: {
+        //height: 350,
+        height: '90%',
+        //width: 200,
+        width: '90%',
+        marginTop: '3%',
+        alignSelf: 'center',
+        borderColor: 'white',
+        borderWidth: 1,
+        marginTop: '3%',
+
+    },
+    contentContainer: {
+        flexWrap: 'wrap',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: 'white',
+        backgroundColor: '#003264',
+        //backgroundColor: '#155493',
+        //backgroundColor: '#134d86',
+        width: '90%',
+        height: '18%',
+        alignSelf: 'center',
+        //marginBottom: '30%',
+        marginTop: '-28%',
+
+    },
+    tarotName: {
+        fontSize: 20,
+        textAlign: 'left',
+        fontFamily: 'CantoraOne_400Regular',
+        paddingLeft: 20,
+        paddingTop: 15,
+        fontWeight: 'bold',
+        color: 'white',
+
+    },
+    tarotKeywords: {
+        textAlign: 'left',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        fontFamily: 'CantoraOne_400Regular',
+        fontSize: 14,
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        textDecorationLine: 'underline',
+        color: 'white',
+
+    },
+    tarotContent: {
+        textAlign: 'left',
+        padding: 20,
+        fontFamily: 'CantoraOne_400Regular',
+        fontSize: 14,
+        color: 'white',
+
+    },
+    btn0: {
+        borderWidth: 1,
+        borderRadius: 15,
+        marginTop: '-81%',
+        marginBottom: '70%',
+        paddingVertical: 10,
+        borderColor: 'white',
+        paddingHorizontal: 30,
+        alignSelf: 'center',
+        //backgroundColor: '#003264',
+        //backgroundColor: '#155493',
+        backgroundColor: '#134d86',
+
+        fontFamily: 'CantoraOne_400Regular',
+    },
+    btn1: {
+        borderWidth: 1,
+        borderRadius: 5,
+        borderRadius: 15,
+        borderColor: 'white',
+        marginTop: '-4%',
+        marginBottom: '70%',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        alignSelf: 'center',
+        backgroundColor: '#134d86',
+        // backgroundColor: '#155493',
+        fontFamily: 'CantoraOne_400Regular',
+    },
+    texta: {
+        //marginHorizontal: "2%",
+        //marginVertical: "2%",
+        borderWidth: 1,
+        borderRadius: 5,
+        //borderRadius: 15,
+        borderColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 18,
+        alignSelf: 'center',
+        backgroundColor: '#003264',
+        fontFamily: 'CantoraOne_400Regular',
+        color: 'white',
+
+
+    },
+    textAskAgain: {
+        fontFamily: 'CantoraOne_400Regular',
+        fontSize: 14,
+        color: 'white',
+    }
+})
+
+export default Cartas;
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
 import React, {useState} from  'react';
 import cardsObject from '../cards-folder/cardsObject';
 import {Image, ScrollView, View,Text, Modal, StyleSheet,TouchableOpacity} from 'react-native';
@@ -12,12 +492,12 @@ import { block } from 'react-native-reanimated';
 const background = require(`./../cards-folder/tarotBack.png`);
 
 const Cartas = ({navigation}) => {
-    
+
     const [fontsLoaded] = useFonts({
         CantoraOne_400Regular,
         });
 
-  
+
         /// Choose Number
             const [chosenNumber, setChosenNumber] = useState()
             const listOfNames = (cards) => {
@@ -60,13 +540,13 @@ const Cartas = ({navigation}) => {
             const tarotImage= listImages[chosenNumber];
             const tarotKeywords = listKeywords[chosenNumber];
             const tarotContent = listContent[chosenNumber];
-        
+
             ///MODALS STATES
             const [drawVisible, setDrawVisible] = useState(true);
             const [imageVisible, setImageVisible] = useState(false);
             const [contentVisible, setContentVisible] = useState(false);
-        
-        
+
+
         // IMAGE INDEX
             const [imageIndex, setImageIndex] = useState(0)
             const [contentIndex, setContentIndex] = useState(1)
@@ -76,37 +556,37 @@ const Cartas = ({navigation}) => {
             const handleContentIndex = () => {
                 contentIndex <= imageIndex ? setContentIndex(imageIndex + 1) : setContentIndex(1)
             }
-        
+
             const [animationVisible, setAnimationVisble] = useState(false)
-         
+
             const background = require(`./../cards-folder/tarotBack.png`);
-        
+
             const handleDraw = () => {
                 setDrawVisible(false)
-                setAnimationVisble(true) 
-                setTimeout(()=> setAnimationVisble(false), 2000)    
-                //setTimeout(()=> 
+                setAnimationVisble(true)
+                setTimeout(()=> setAnimationVisble(false), 2000)
+                //setTimeout(()=>
                 setImageVisible(true)
                 //, 2000)
-                //setTimeout(()=> 
+                //setTimeout(()=>
                 setContentVisible(true)
                 //,4000)
             }
-        
-        
+
+
             console.log(imageIndex, contentIndex)
 
     if (!fontsLoaded) {
         return <Text>Carregando...</Text>;
         } else {
 
-    return (             
+    return (
         <>
 
             <View style={styles.introContainer} >
 
 
-<TouchableOpacity style={styles.container} title='Ask Again' onPress={()=>navigation.navigate('CARD19')}>
+<TouchableOpacity style={styles.container} title='Ask Again' onPress={()=> {handleDraw()}}>
                                 <Text style={styles.texta}>O Tolo</Text>
                         </TouchableOpacity>
 
@@ -198,19 +678,8 @@ const Cartas = ({navigation}) => {
                 <TouchableOpacity style={styles.container} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
                                 <Text style={styles.texta}>Voltar</Text>
                         </TouchableOpacity>
-                    
+
             </View>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -220,21 +689,21 @@ const Cartas = ({navigation}) => {
 
             <ScrollView  keyboardShouldPersistTaps={'always'} style={styles.container}>
 
-  
 
-                    {drawVisible ? 
+
+                    {drawVisible ?
                         <View style={styles.containerDraw}>
-                   
- 
-                            </View> 
-                        : null }    
-                        
-                        {animationVisible ? 
+
+
+                            </View>
+                        : null }
+
+                        {animationVisible ?
                             <View style={styles.animation}>
                                 <CardAnimation />
                             </View>
-                        : null }                                                
-                        {!animationVisible ? 
+                        : null }
+                        {!animationVisible ?
                         <Modal
                             animationType="fade"
                             easing="easeIn"
@@ -248,23 +717,23 @@ const Cartas = ({navigation}) => {
                             <Image style={styles.tarotImage} source={tarotImage} />
                             </Animatable.View>
                             </TouchableOpacity>
-                        {contentVisible ?                           
-                        <View>  
-                            
-                                <ScrollView 
+                        {contentVisible ?
+                        <View>
+
+                                <ScrollView
                                 style={styles.contentContainer}
                                 keyboardShouldPersistTaps={'always'}
                                 >
-                                <TouchableOpacity 
-                                onPress={handleContentIndex} 
+                                <TouchableOpacity
+                                onPress={handleContentIndex}
                                 style={[styles.changeContentIndex, {zIndex: contentIndex}]}>
                                     <Text style={styles.tarotName}>{tarotName}</Text>
                                     <Text style={styles.tarotKeywords}>{tarotKeywords}</Text>
                                     <Text style={styles.tarotContent}>{tarotContent}</Text>
                                     </TouchableOpacity>
-                                </ScrollView> 
+                                </ScrollView>
 
-                                
+
                             <View>
                                 <TouchableOpacity style={styles.btn1} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
                                 <Text style={styles.textAskAgain}>Início</Text>
@@ -275,15 +744,15 @@ const Cartas = ({navigation}) => {
                         </TouchableOpacity>
 
                         </View>
-        
+
 
                         </View>
                         : null}
-                    
+
                         </Modal>
                         : null}
 
-                    
+
             </ScrollView>
             </>
 
@@ -297,18 +766,18 @@ const Cartas = ({navigation}) => {
 
 
 
-      
-                      
+
+
    </> )
         }
 }
 
 const styles = StyleSheet.create({
     introContainer: {
-        flex: 1,
+       // flex: 1,
         flexWrap: "wrap",
         flexDirection: "row",
-        backgroundColor: '#7F1717',
+        backgroundColor: '#000c51',
         width: '100%',
         height: '100%',
         justifyContent: 'center',
@@ -317,16 +786,17 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 5,
         marginTop: '5%',
+        backgroundColor:   '#000c51',
         marginHorizontal: "1%",
     },
-    draw:{ 
+    draw:{
         width: 250,
         height: 250,
         alignContent: 'center',
         alignSelf:'center',
         justifyContent: 'center',
         textAlign: 'center',
-        
+
     },
     titleDraw: {
         fontFamily: 'CantoraOne_400Regular',
@@ -339,14 +809,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         //borderRadius: 15,
-        borderColor: '#5F0404',
+        borderColor: 'white',
         paddingVertical: 10,
         paddingHorizontal: 18,
         alignSelf:'center',
-        backgroundColor: 'white',
+        backgroundColor: '#003264',
         fontFamily: 'CantoraOne_400Regular',
+        color: 'white',
+
     },
 
 })
 
 export default Cartas;
+
+
+
+*/

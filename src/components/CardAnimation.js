@@ -15,6 +15,7 @@ const CardAnimation = ()=> {
             <View style={styles.imageContainer}>
                 <Animatable.View
                 animation="slideOutRight" 
+                
                 iterationCount={3}
                 easing="ease-out-expo"
                 style={styles.animate}
