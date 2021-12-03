@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "tarot-native",
+    "slug": "tarot-native",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/simpletarot.png",
+    "splash": {
+      "image": "./assets/simpletarot.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bluemoonecho.tarot-native"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/simpletarot.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/simpletarot.png"
+    },
+    "description": "A simple tarot app built with react-native\n\n",
+    "githubUrl": "https://github.com/bluemoonecho/tarot-react-native"
+  }
+}
