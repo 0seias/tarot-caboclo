@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     imagem: {
         alignSelf: 'center',
         top: '6%',
-       // paddingBottom: '15%',
+        backgroundColor: '#134d86',
         height: '167%', 
         width: '100%',
     },
